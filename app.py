@@ -15,55 +15,57 @@ st.set_page_config(
 # --- 2. HỆ THỐNG PHONG CÁCH UI/UX CAO CẤP ---
 st.markdown("""
     <style>
-    /* Tổng thể ứng dụng */
-    .stApp { background-color: #F8FAFC; }
+    /* Sử dụng biến theme của Streamlit để tự động đảo màu nền/chữ */
+    .stApp { 
+        background-color: var(--background-color); 
+        color: var(--text-color); 
+    }
     
-    /* Thanh điều hướng bên cạnh */
-    [data-testid="stSidebar"] { background-color: #0F172A; color: #FFFFFF; }
-    [data-testid="stSidebar"] .stMarkdown { color: #CBD5E1; }
+    /* Thanh điều hướng bên cạnh: Giữ màu tối nhưng chữ theo biến hệ thống */
+    [data-testid="stSidebar"] { 
+        background-color: var(--secondary-background-color); 
+    }
+    [data-testid="stSidebar"] .stMarkdown { 
+        color: var(--text-color); 
+    }
     
-    /* Khối tiêu đề chính */
+    /* Khối tiêu đề chính: Giữ gradient như cũ */
     .header-container {
         background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
         padding: 35px 40px; border-radius: 16px; margin-bottom: 30px;
-        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
     }
-    .main-title { font-size: 26px; font-weight: bold; color: #FFFFFF; letter-spacing: -0.5px; margin-bottom: 8px; }
-    .sub-title { font-size: 14px; color: #93C5FD; font-weight: 400; opacity: 0.9; }
+    .main-title { font-size: 26px; font-weight: bold; color: #FFFFFF; }
+    .sub-title { font-size: 14px; color: #93C5FD; font-weight: 400; }
     
-    /* Định dạng Khối Trắng cao cấp (Cards) */
+    /* Khối Cards: Sử dụng màu nền phụ của Streamlit thay vì màu trắng cố định */
     .custom-card {
-        background-color: #FFFFFF; padding: 24px; border-radius: 16px;
-        border: 1px solid #E2E8F0; margin-bottom: 25px;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.02);
+        background-color: var(--secondary-background-color);
+        padding: 24px; border-radius: 16px;
+        border: 1px solid var(--primary-color);
+        margin-bottom: 25px;
     }
-    .card-title { font-size: 16px; font-weight: bold; color: #0F172A; margin-bottom: 20px; border-left: 4px solid #2563EB; padding-left: 12px; line-height: 1.2; }
+    .card-title { 
+        font-size: 16px; font-weight: bold; color: var(--text-color); 
+        margin-bottom: 20px; border-left: 4px solid #2563EB; padding-left: 12px;
+    }
     
-    /* Thiết kế thẻ chỉ số phụ */
+    /* Thẻ chỉ số phụ */
     .task-card {
-        background-color: #F8FAFC; padding: 15px; border-radius: 12px;
-        border: 1px solid #E2E8F0; text-align: center;
-        transition: all 0.25s ease-in-out;
+        background-color: var(--background-color); 
+        padding: 15px; border-radius: 12px;
+        border: 1px solid var(--text-color);
     }
-    .task-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border-color: #CBD5E1; }
-    .task-card-title { font-size: 12px; color: #64748B; font-weight: 600; min-height: 36px; display: flex; align-items: center; justify-content: center; text-transform: uppercase; letter-spacing: 0.5px; }
-    .task-card-value { font-size: 26px; color: #1E293B; font-weight: 800; margin-top: 6px; }
-    
-    /* Thiết kế nhãn trạng thái (Badges) */
-    .badge { padding: 6px 14px; font-weight: 700; border-radius: 30px; font-size: 13px; display: inline-block; }
-    .badge-safe { background-color: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0; }
-    .badge-medium { background-color: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-    .badge-danger { background-color: #FEE2E2; color: #B91C1C; border: 1px solid #FCA5A5; }
+    .task-card-value { font-size: 26px; color: var(--text-color); font-weight: 800; }
     
     /* Tối ưu Tabs của Streamlit */
-    .stTabs [data-baseweb="tab-list"] { gap: 10px; }
     .stTabs [data-baseweb="tab"] {
-        padding: 12px 24px; background-color: #E2E8F0; border-radius: 8px 8px 0px 0px;
-        color: #475569; font-weight: 600; transition: all 0.2s;
+        background-color: var(--secondary-background-color);
+        color: var(--text-color);
     }
-    .stTabs [data-baseweb="tab"]:hover { background-color: #CBD5E1; color: #0F172A; }
-    .stTabs [data-baseweb="tab"][aria-selected="true"] { background-color: #2563EB !important; color: white !important; font-weight: 700; }
-    </style>
+    .stTabs [data-baseweb="tab"][aria-selected="true"] { 
+        background-color: #2563EB !important; color: white !important; 
+    }
+</style>
 """, unsafe_allow_html=True)
 
 # --- 3. DỮ LIỆU & MAPPING CHUẨN HÓA ---
