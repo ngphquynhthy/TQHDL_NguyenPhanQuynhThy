@@ -143,10 +143,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 5. KHỞI TẠO TABS CHÍNH ---
-tab_corr, tab_auto, tab_main = st.tabs([
-    "🔍 Nghịch Lý Lương & AI",
-    "📈 Trợ Lý Ảo & Thực Trạng", 
-    "📊 Khả Năng Tự Động Hóa",
+tab_corr, tab_main, tab_auto = st.tabs([
+    "🔍 Thực trạng hành vi sử dụng AI",
+    "📈 Dự đoán mức thu nhập", 
+    "📊 Khả Năng Tự Động Hóa & Rủi ro",
 ])
 
 exp_sort_order = ['Less than 1 year', '1-2 year', '3-5 years', '6-10 years', 'More than 10 years']
@@ -461,7 +461,7 @@ with tab_auto:
     st.markdown('</div>', unsafe_allow_html=True)
     # 2. BIỂU ĐỒ SCATTER TỔNG QUAN (Đưa xuống cuối cùng)
     st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">🌐 Industry Risk Distribution (Scatter Map)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">🌐 Phân bố rủi ro ngành nghề</div>', unsafe_allow_html=True)
     
     fig_scatter = px.scatter(
         cs_summary, 
