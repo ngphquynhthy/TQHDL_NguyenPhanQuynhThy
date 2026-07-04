@@ -353,7 +353,7 @@ with tab_auto:
     # Logic so sánh giữa Mong muốn người dùng (user_automation_desire) và Khả năng AI (exp_auto)
     
     # TRƯỜNG HỢP 1: Mong muốn của người dùng > Khả năng AI có thể làm
-    if user_automation_desire > exp_auto + 0.5: # Thêm ngưỡng 0.5 để tránh cảnh báo khi chênh lệch quá nhỏ
+    if user_automation_desire > exp_auto:
         st.warning(f"""
         ⚠️ **CẢNH BÁO MỨC ĐỘ KỲ VỌNG:** Mức độ tự động hóa bạn mong muốn ({user_automation_desire:.1f}) 
         đang **cao hơn đáng kể** so với khả năng thực tế mà AI có thể đảm nhận một cách an toàn trong ngành này (Điểm: {exp_auto:.1f}).
