@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-# --- 1. CẤU HÌNH TRANG WEB CHUẨN DOANH NGHIỆP ---
+# 1. CẤU HÌNH TRANG
 st.set_page_config(
     page_title="AI Impact Analysis Dashboard",
     page_icon="🤖",
@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. HỆ THỐNG PHONG CÁCH UI/UX CAO CẤP ---
+# 2. GIAO DIỆN TRANG
 st.markdown("""
     <style>
     /* Sử dụng biến theme của Streamlit để tự động đảo màu nền/chữ */
@@ -29,7 +29,7 @@ st.markdown("""
         color: var(--text-color); 
     }
     
-    /* Khối tiêu đề chính: Giữ gradient như cũ */
+    /* Khối tiêu đề chính */
     .header-container {
         background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
         padding: 35px 40px; border-radius: 16px; margin-bottom: 30px;
@@ -68,7 +68,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- 3. DỮ LIỆU & MAPPING CHUẨN HÓA ---
+# 3. DỮ LIỆU & MAPPING CHUẨN HÓA
 raw_translation = {
     'Web Administrators': 'Quản trị viên Hệ thống Web',
     'Web Developers': 'Lập trình viên Web',
@@ -129,7 +129,7 @@ def load_data():
 
 cs_expert_raw, cs_summary, metadata_df, cs_desires_raw, task_df = load_data()
 
-# --- 4. THANH BÊN (SIDEBAR) & HEADER ---
+# 4. THANH BÊN (SIDEBAR) & HEADER
 with st.sidebar:
     st.markdown("<br><h3 style='color: white; margin-bottom: 0;'>🤖 AI Agent Board</h3>", unsafe_allow_html=True)
     st.markdown("<p style='color: #94A3B8; font-size: 13px;'>Hệ thống Phân tích Khoa học & Thực trạng</p>", unsafe_allow_html=True)
@@ -151,16 +151,14 @@ tab_corr, tab_main, tab_auto = st.tabs([
     "📊 Khả Năng Tự Động Hóa & Rủi ro",
 ])
 
-exp_sort_order = ['Less than 1 year', '1-2 year', '3-5 years', '6-10 years', 'More than 10 years']
-
-# ==========================================
 # GIAO DIỆN TAB 1: TRỢ LÝ ẢO + THỰC TRẠNG
-# ==========================================
+
 with tab_main:
     # --- PHẦN 1: FORM TRỢ LÝ ẢO ---
     st.markdown('<div class="card-title">🤖 Trợ Lý Ảo Cố Vấn Tối Ưu Thu Nhập & Kỹ Năng</div>', unsafe_allow_html=True)
     st.markdown("Vui lòng cung cấp thông tin hiện tại của bạn để hệ thống đối chiếu với dữ liệu thị trường và đưa ra chiến lược phù hợp.")
-    
+
+    exp_sort_order = ['Less than 1 year', '1-2 year', '3-5 years', '6-10 years', 'More than 10 years']
     c1, c2, c3, c4 = st.columns(4)
     with c1:
         default_idx = next((i for i, label in enumerate(cs_summary['Selectbox_Label']) if "Computer Systems Analysts" in label), 0)
@@ -204,8 +202,7 @@ with tab_main:
     ai_users = exact_peers_df[exact_peers_df['LLM Use in Work'].astype(str).str.contains('every day|every week', case=False, na=False)]
     non_ai_users = exact_peers_df[~exact_peers_df['LLM Use in Work'].astype(str).str.contains('every day|every week', case=False, na=False)]
     
-    # SỬA LỖI TẠI ĐÂY: Lọc dữ liệu lương dựa trên ngành được chọn (occ_eng_main)
-    # Giả sử bạn đã load file task_statement_with_metadata.csv vào biến 'task_df'
+    # Lọc dữ liệu lương dựa trên ngành được chọn (occ_eng_main)
     wage_data = task_df[task_df['Occupation (O*NET-SOC Title)'] == occ_eng_main]
     
     # Tính lương trung bình ngành từ wage_data đã lọc
@@ -220,8 +217,6 @@ with tab_main:
     occ_risk = cs_summary[cs_summary['Occupation (O*NET-SOC Title)'] == occ_eng_main]['Mean_Automation'].values[0]
 
     # --- PHẦN 3: HIỂN THỊ METRIC ---
-    # ... (giữ nguyên phần Báo cáo số lượng data thực tế)
-    
     rm1, rm2, rm3, rm4 = st.columns(4)
     with rm1: 
         # Hiển thị mức lương đã được tính toán lại theo ngành
